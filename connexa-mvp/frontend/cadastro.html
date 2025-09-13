@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Connexa</title>
+    <title>Cadastro Connexa</title>
     <style>
         body {
             background: #f5f6fa;
@@ -39,7 +37,7 @@
             font-weight: 500;
             color: #636e72;
         }
-        input {
+        input, select {
             padding: 0.7rem;
             border: 1px solid #dfe6e9;
             border-radius: 5px;
@@ -58,14 +56,6 @@
         button:hover {
             background: #74b9ff;
         }
-        .cadastro-btn {
-            background: #636e72;
-            margin-top: 0.5rem;
-        }
-        .cadastro-btn:hover {
-            background: #b2bec3;
-            color: #2d3436;
-        }
         @media (max-width: 500px) {
             .container {
                 padding: 1rem;
@@ -76,24 +66,54 @@
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
-        <form id="loginForm">
+        <h2>Cadastro de Usuário</h2>
+        <form id="cadastroForm">
+            <label for="nomeCompleto">Nome Completo</label>
+            <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+
             <label for="email">E-mail Institucional</label>
             <input type="email" id="email" name="email" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+
+            <label for="curso">Curso</label>
+            <input type="text" id="curso" name="curso" required>
+
+            <label for="semestre">Período/Semestre</label>
+            <input type="number" id="semestre" name="semestre" min="1" max="12" required>
 
             <label for="senha">Senha</label>
             <input type="password" id="senha" name="senha" required>
 
-            <button type="submit">Entrar</button>
+            <button type="submit">Cadastrar</button>
         </form>
-        <button class="cadastro-btn" onclick="window.location.href='cadastro.html'">Cadastrar-se</button>
         <div id="mensagem" style="margin-top:1rem;text-align:center;"></div>
     </div>
     <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        // Aqui você pode implementar a lógica de login (requisição para API)
-        document.getElementById('mensagem').textContent = 'Login não implementado.';
+        const form = e.target;
+        const dados = {
+            nomeCompleto: form.nomeCompleto.value,
+            email: form.email.value,
+            curso: form.curso.value,
+            semestre: form.semestre.value,
+            senha: form.senha.value
+        };
+        try {
+            const resp = await fetch('http://localhost:3000/api/usuarios/cadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            const resultado = await resp.json();
+            if (resp.status === 201) {
+                document.getElementById('mensagem').textContent = `Cadastro realizado! ID: ${resultado.id}`;
+                form.reset();
+            } else {
+                document.getElementById('mensagem').textContent = resultado.erro || 'Erro ao cadastrar.';
+            }
+        } catch (err) {
+            document.getElementById('mensagem').textContent = 'Erro de conexão com o servidor.';
+        }
     });
     </script>
 </body>
