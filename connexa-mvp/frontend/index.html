@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Connexa</title>
     <link rel="stylesheet" href="css/login.css">
+    <style>
+        /* Etilo do botão temporario para acessar a pagina de criação de grupos*/
+        .grupo-btn {
+            background: #00b894;
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .grupo-btn:hover {
+            background: #55efc4;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,6 +38,8 @@
             <button type="submit">Entrar</button>
         </form>
         <button class="cadastro-btn" onclick="window.location.href='cadastro.html'">Cadastrar-se</button>
+        <!-- Botão temporário para acessar a página de criação de grupos-->
+        <button class="grupo-btn" onclick="window.location.href='grupo.html'">Acessar Grupos</button> 
         <div id="mensagem" style="margin-top:1rem;text-align:center;"></div>
     </div>
     <script>
