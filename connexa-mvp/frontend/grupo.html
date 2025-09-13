@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Grupo - Connexa</title>
+    <link rel="stylesheet" href="css/grupo.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Grupo</h2>
+        <form id="grupoForm">
+            <label for="nomeGrupo">Nome do Grupo</label>
+            <input type="text" id="nomeGrupo" name="nomeGrupo" required placeholder="Digite o nome do grupo">
+
+            <label>Integrantes (E-mails Institucionais)</label>
+            <div id="integrantesContainer">
+                <input type="email" name="integrante" class="integrante" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+                <input type="email" name="integrante" class="integrante" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+                <input type="email" name="integrante" class="integrante" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+            </div>
+            <button type="button" id="addIntegrante">Adicionar Integrante</button>
+            <button type="button" id="removeIntegrante">Remover Integrante</button>
+            <small>(Mínimo 3, máximo 6 integrantes)</small>
+
+            <label for="visibilidade">Visibilidade do Grupo</label>
+            <select id="visibilidade" name="visibilidade" required>
+                <option value="publico">Público</option>
+                <option value="privado">Privado</option>
+            </select>
+
+            <button type="submit">Criar Grupo</button>
+        </form>
+        <div id="mensagem" style="margin-top:1rem;text-align:center;"></div>
+    </div>
+    <script>
+    const integrantesContainer = document.getElementById('integrantesContainer');
+    const addBtn = document.getElementById('addIntegrante');
+    const removeBtn = document.getElementById('removeIntegrante');
+
+    addBtn.addEventListener('click', () => {
+        const count = integrantesContainer.querySelectorAll('input.integrante').length;
+        if (count < 6) {
+            const input = document.createElement('input');
+            input.type = 'email';
+            input.name = 'integrante';
+            input.className = 'integrante';
+            input.pattern = '.+@universidade.edu.br';
+            input.required = true;
+            input.placeholder = 'usuario@universidade.edu.br';
+            integrantesContainer.appendChild(input);
+        }
+    });
+
+    removeBtn.addEventListener('click', () => {
+        const inputs = integrantesContainer.querySelectorAll('input.integrante');
+        if (inputs.length > 3) {
+            integrantesContainer.removeChild(inputs[inputs.length - 1]);
+        }
+    });
+
+    document.getElementById('grupoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const integrantes = Array.from(document.querySelectorAll('input.integrante')).map(i => i.value.trim());
+        const faculdadeRegex = /@universidade\.edu\.br$/;
+        const todosDaFaculdade = integrantes.every(email => faculdadeRegex.test(email));
+        if (!todosDaFaculdade) {
+            document.getElementById('mensagem').textContent = 'Todos os integrantes devem ser da mesma faculdade (@universidade.edu.br).';
+            return;
+        }
+        document.getElementById('mensagem').textContent = 'Grupo criado com sucesso!';
+        // Aqui você pode implementar a lógica de envio para a API
+    });
+    </script>
+</body>
+</html>
