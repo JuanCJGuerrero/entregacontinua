@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = path.resolve(__dirname, '../database/conexa.db');
+const dbPath = path.resolve(__dirname, '../database/bancoteste2.db');
 const db = new sqlite3.Database(dbPath);
 
 // Cria tabela usuarios se não existir
