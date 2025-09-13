@@ -1,0 +1,272 @@
+JuanCJGuerrero: faça uma pagina contendo a interface de criação de grupos com os seguinter critérios: ✅Nome do Grupo
+✅Nomes dos Integrantes
+✅Quantidade Mínima de Integrantes 3
+✅Quantidade Máxima de Integrantes 6
+✅Mudar Visibilidade do Grupo (Público ou Privado)
+✅Verificação se os integrantes do grupo são da mesma faculdade
+crie um arquivo separado para o css
+
+GitHub Copilot: Aqui está o arquivo HTML para a interface de criação de grupos, seguindo seus critérios. O CSS está separado em `css/grupo.css`.
+
+````html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Grupo - Connexa</title>
+    <link rel="stylesheet" href="css/grupo.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Grupo</h2>
+        <form id="grupoForm">
+            <label for="nomeGrupo">Nome do Grupo</label>
+            <input type="text" id="nomeGrupo" name="nomeGrupo" required placeholder="Digite o nome do grupo">
+
+            <label>Integrantes (E-mails Institucionais)</label>
+            <div id="integrantesContainer">
+                <input type="email" name="integrante" class="integrante" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+                <input type="email" name="integrante" class="integrante" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+                <input type="email" name="integrante" class="integrante" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+            </div>
+            <button type="button" id="addIntegrante">Adicionar Integrante</button>
+            <button type="button" id="removeIntegrante">Remover Integrante</button>
+            <small>(Mínimo 3, máximo 6 integrantes)</small>
+
+            <label for="visibilidade">Visibilidade do Grupo</label>
+            <select id="visibilidade" name="visibilidade" required>
+                <option value="publico">Público</option>
+                <option value="privado">Privado</option>
+            </select>
+
+            <button type="submit">Criar Grupo</button>
+        </form>
+        <div id="mensagem" style="margin-top:1rem;text-align:center;"></div>
+    </div>
+    <script>
+    const integrantesContainer = document.getElementById('integrantesContainer');
+    const addBtn = document.getElementById('addIntegrante');
+    const removeBtn = document.getElementById('removeIntegrante');
+
+    addBtn.addEventListener('click', () => {
+        const count = integrantesContainer.querySelectorAll('input.integrante').length;
+        if (count < 6) {
+            const input = document.createElement('input');
+            input.type = 'email';
+            input.name = 'integrante';
+            input.className = 'integrante';
+            input.pattern = '.+@universidade.edu.br';
+            input.required = true;
+            input.placeholder = 'usuario@universidade.edu.br';
+            integrantesContainer.appendChild(input);
+        }
+    });
+
+    removeBtn.addEventListener('click', () => {
+        const inputs = integrantesContainer.querySelectorAll('input.integrante');
+        if (inputs.length > 3) {
+            integrantesContainer.removeChild(inputs[inputs.length - 1]);
+        }
+    });
+
+    document.getElementById('grupoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const integrantes = Array.from(document.querySelectorAll('input.integrante')).map(i => i.value.trim());
+        const faculdadeRegex = /@universidade\.edu\.br$/;
+        const todosDaFaculdade = integrantes.every(email => faculdadeRegex.test(email));
+        if (!todosDaFaculdade) {
+            document.getElementById('mensagem').textContent = 'Todos os integrantes devem ser da mesma faculdade (@universidade.edu.br).';
+            return;
+        }
+        document.getElementById('mensagem').textContent = 'Grupo criado com sucesso!';
+        // Aqui você pode implementar a lógica de envio para a API
+    });
+    </script>
+</body>
+</html>
+````
+
+CSS sugerido para `css/grupo.css`:
+
+````css
+body {
+    background: #f5f6fa;
+    font-family: Arial, sans-serif;
+}
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+form label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+input, select, button {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button[type="button"] {
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 0.5rem;
+    background: #e1e1e1;
+    color: #333;
+    border: none;
+    cursor: pointer;
+}
+button[type="submit"] {
+    background: #2d8cf0;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+#mensagem {
+    color: #e74c3c;
+    font-weight: bold;
+}
+````
+
+JuanCJGuerrero: separe o css do cadastro tambem
+
+GitHub Copilot: Aqui está o arquivo cadastro.html com o CSS separado. O CSS deve ir para `css/cadastro.css`.
+
+````html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Connexa</title>
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro de Usuário</h2>
+        <form id="cadastroForm">
+            <label for="nomeCompleto">Nome Completo</label>
+            <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+
+            <label for="email">E-mail Institucional</label>
+            <input type="email" id="email" name="email" pattern=".+@universidade.edu.br" required placeholder="usuario@universidade.edu.br">
+
+            <label for="curso">Curso</label>
+            <input type="text" id="curso" name="curso" required>
+
+            <label for="semestre">Período/Semestre</label>
+            <input type="number" id="semestre" name="semestre" min="1" max="12" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+        <div id="mensagem" style="margin-top:1rem;text-align:center;"></div>
+    </div>
+    <script>
+    document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const dados = {
+            nomeCompleto: form.nomeCompleto.value,
+            email: form.email.value,
+            curso: form.curso.value,
+            semestre: form.semestre.value,
+            senha: form.senha.value
+        };
+        try {
+            const resp = await fetch('http://localhost:3000/api/usuarios/cadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            const resultado = await resp.json();
+            if (resp.status === 201) {
+                document.getElementById('mensagem').textContent = `Cadastro realizado! ID: ${resultado.id}`;
+                form.reset();
+            } else {
+                document.getElementById('mensagem').textContent = resultado.erro || 'Erro ao cadastrar.';
+            }
+        } catch (err) {
+            document.getElementById('mensagem').textContent = 'Erro de conexão com o servidor.';
+        }
+    });
+    </script>
+</body>
+</html>
+````
+
+CSS para `css/cadastro.css`:
+
+````css
+body {
+    background: #f5f6fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 400px;
+    width: 100%;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2d3436;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+label {
+    font-weight: 500;
+    color: #636e72;
+}
+input, select {
+    padding: 0.7rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+button {
+    background: #0984e3;
+    color: #fff;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #74b9ff;
+}
+@media (max-width: 500px) {
+    .container {
+        padding: 1rem;
+        max-width: 95vw;
+    }
+}
+````
+
