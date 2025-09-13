@@ -1,0 +1,64 @@
+body {
+    background: #f5f6fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 400px;
+    width: 100%;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2d3436;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+label {
+    font-weight: 500;
+    color: #636e72;
+}
+input {
+    padding: 0.7rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+button {
+    background: #0984e3;
+    color: #fff;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #74b9ff;
+}
+.cadastro-btn {
+    background: #636e72;
+    margin-top: 0.5rem;
+}
+.cadastro-btn:hover {
+    background: #b2bec3;
+    color: #2d3436;
+}
+@media (max-width: 500px) {
+    .container {
+        padding: 1rem;
+        max-width: 95vw;
+    }
+}
