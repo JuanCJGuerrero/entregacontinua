@@ -10,8 +10,8 @@ app.post('/api/usuarios/cadastro', async (req, res) => {
     const { nomeCompleto, email, curso, semestre, senha } = req.body;
 
     // Validação do email institucional
-    if (!/^.+@universidade\.edu\.br$/.test(email)) {
-        return res.status(400).json({ erro: 'Email deve ser institucional (@universidade.edu.br)' });
+    if (!/^.+@alunos\.unisanta\.br$/.test(email)) {
+        return res.status(400).json({ erro: 'Email deve ser institucional (@alunos.unisanta.br)' });
     }
 
     // Hash da senha
