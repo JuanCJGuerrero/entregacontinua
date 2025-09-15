@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const db = require('./database');
 
 const app = express();
-app.use(express.json());
+app.use(express.json()); 
+
 
 // Endpoint de cadastro de usuário
 app.post('/api/usuarios/cadastro', async (req, res) => {
