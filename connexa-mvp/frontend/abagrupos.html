@@ -18,7 +18,7 @@
         <thead>
             <tr>
                 <th>Nome do Grupo</th>
-                <th>Email dos Usuários</th>
+                <th>Email dos integrantes</th>
                 <th>Privacidade</th>
             </tr>
         </thead>
@@ -35,28 +35,32 @@
         //   { nome: "Grupo 2", usuarios: ["user3@email.com"], privado: false }
         // ];
 
-        function renderGrupos() {
-            const tbody = document.getElementById('grupos-tbody');
-            tbody.innerHTML = '';
-            if (typeof grupos === 'undefined' || !Array.isArray(grupos)) {
-                tbody.innerHTML = '<tr><td colspan="3">Nenhum grupo cadastrado.</td></tr>';
-                return;
-            }
-            grupos.forEach(grupo => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${grupo.nome}</td>
-                    <td>${grupo.usuarios.join('<br>')}</td>
-                    <td class="${grupo.privado ? 'privado' : 'publico'}">
-                        ${grupo.privado ? 'Privado' : 'Público'}
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+        async function renderGrupos() {
+    const tbody = document.getElementById('grupos-tbody');
+    tbody.innerHTML = '';
+    try {
+        const resp = await fetch('/connexa-mvp/database/api/src/functions/cadastro.js"');
+        const grupos = await resp.json();
+        if (!Array.isArray(grupos) || grupos.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3">Nenhum grupo cadastrado.</td></tr>';
+            return;
         }
-
-        // Aguarda o carregamento do grupo.js
-        window.onload = renderGrupos;
+        grupos.forEach(grupo => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${grupo.nomeGrupo}</td>
+                <td>${grupo.integrantes.join('<br>')}</td>
+                <td class="${grupo.visibilidade === 'privado' ? 'privado' : 'publico'}">
+                    ${grupo.visibilidade === 'privado' ? 'Privado' : 'Público'}
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="3">Erro ao carregar grupos.</td></tr>';
+    }
+}
+window.onload = renderGrupos;
     </script>
 </body>
 </html>

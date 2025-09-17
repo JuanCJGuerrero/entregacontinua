@@ -13,6 +13,13 @@ const createTable = () => {
         curso TEXT NOT NULL,
         semestre INTEGER NOT NULL,
         senha TEXT NOT NULL
+    )`); 
+    // Cria tabela grupos se não existir
+    db.run(`CREATE TABLE IF NOT EXISTS grupos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nomeGrupo TEXT NOT NULL,
+        visibilidade TEXT NOT NULL,
+        integrantes TEXT NOT NULL -- Armazene como JSON string
     )`);
 };
 
