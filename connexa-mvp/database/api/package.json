@@ -1,16 +1,11 @@
 {
-  "name": "",
+  "name": "connexa-functions",
   "version": "1.0.0",
-  "description": "",
+  "description": "Azure Functions for Connexa backend",
   "main": "src/functions/*.js",
   "scripts": {
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {
-    "@azure/functions": "^4.0.0"
-  },
-  "devDependencies": {
-    "azure-functions-core-tools": "^4.x"
-  }
+  "dependencies": {}
 }

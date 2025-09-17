@@ -1,4 +1,17 @@
 {
-	"version": "2.0.0",
-	"tasks": []
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm prune (functions)",
+      "type": "shell",
+      "command": "npm prune",
+      "problemMatcher": []
+    },
+    {
+      "label": "npm install (functions)",
+      "type": "shell",
+      "command": "npm install",
+      "problemMatcher": []
+    }
+  ]
 }

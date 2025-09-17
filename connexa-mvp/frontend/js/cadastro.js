@@ -9,7 +9,7 @@ document.getElementById('cadastroForm').addEventListener('submit', async functio
         senha: form.senha.value
     };
     try {
-        const resp = await fetch('https://bancoconexa.azurewebsites.net/api/CadastroUsuario', {
+        const resp = await fetch('https://bancoconexa.azurewebsites.net/api/CadastroBanco', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados)
