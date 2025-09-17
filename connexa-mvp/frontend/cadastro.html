@@ -42,7 +42,7 @@
             senha: form.senha.value
         };
         try {
-            const resp = await fetch('http://localhost:3000/api/usuarios/cadastro', {
+            const resp = await fetch('bancoconexa.azurewebsites.net/api/CadastroUsuario', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dados)
