@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupos de Estudo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f4f4f4; }
+        .privado { color: #c00; font-weight: bold; }
+        .publico { color: #090; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Grupos de Estudo</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Grupo</th>
+                <th>Email dos Usuários</th>
+                <th>Privacidade</th>
+            </tr>
+        </thead>
+        <tbody id="grupos-tbody">
+            <!-- Conteúdo gerado pelo JS -->
+        </tbody>
+    </table>
+    <script src="grupo.js"></script>
+    <script>
+        // Supondo que grupo.js define uma variável global chamada "grupos"
+        // Exemplo de estrutura esperada:
+        // const grupos = [
+        //   { nome: "Grupo 1", usuarios: ["user1@email.com", "user2@email.com"], privado: true },
+        //   { nome: "Grupo 2", usuarios: ["user3@email.com"], privado: false }
+        // ];
+
+        function renderGrupos() {
+            const tbody = document.getElementById('grupos-tbody');
+            tbody.innerHTML = '';
+            if (typeof grupos === 'undefined' || !Array.isArray(grupos)) {
+                tbody.innerHTML = '<tr><td colspan="3">Nenhum grupo cadastrado.</td></tr>';
+                return;
+            }
+            grupos.forEach(grupo => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${grupo.nome}</td>
+                    <td>${grupo.usuarios.join('<br>')}</td>
+                    <td class="${grupo.privado ? 'privado' : 'publico'}">
+                        ${grupo.privado ? 'Privado' : 'Público'}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Aguarda o carregamento do grupo.js
+        window.onload = renderGrupos;
+    </script>
+</body>
+</html>
