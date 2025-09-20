@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo</title>
+  <link rel="stylesheet" href="css/TelaGrupo.css">
+</head>
+<body>
+  <div class="container">
+    <h2 id="nomeGrupo">Grupo</h2>
+    <p><strong>Visibilidade:</strong> <span id="visibilidadeGrupo"></span></p>
+
+    <h3>Integrantes:</h3>
+    <ul id="listaIntegrantes"></ul>
+
+    <h3>Matérias (Tags)</h3>
+    <div id="materiasContainer"></div>
+    <input type="text" id="novaMateria" placeholder="Adicionar matéria">
+    <button id="addMateriaBtn">Adicionar Matéria</button>
+
+    <h3>Objetivos do Grupo</h3>
+    <ul id="objetivosContainer"></ul>
+    <input type="text" id="novoObjetivo" placeholder="Adicionar objetivo">
+    <button id="addObjetivoBtn">Adicionar Objetivo</button>
+
+    <h3>Chat do Grupo</h3>
+    <div id="chatContainer"></div>
+    <input type="text" id="mensagemInput" placeholder="Digite sua mensagem">
+    <button id="sendMsgBtn">Enviar</button>
+
+    <button id="voltarBtn">Voltar para Grupos</button>
+  </div>
+
+  <script src="js/TelaGrupo.js"></script>
+</body>
+</html>

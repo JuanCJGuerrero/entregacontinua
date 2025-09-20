@@ -61,15 +61,32 @@
 
     document.getElementById('grupoForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        const nomeGrupo = document.getElementById('nomeGrupo').value.trim();
         const integrantes = Array.from(document.querySelectorAll('input.integrante')).map(i => i.value.trim());
+        const visibilidade = document.getElementById('visibilidade').value;
+
         const faculdadeRegex = /@universidade\.edu\.br$/;
         const todosDaFaculdade = integrantes.every(email => faculdadeRegex.test(email));
         if (!todosDaFaculdade) {
             document.getElementById('mensagem').textContent = 'Todos os integrantes devem ser da mesma faculdade (@universidade.edu.br).';
             return;
         }
-        document.getElementById('mensagem').textContent = 'Grupo criado com sucesso!';
-        // Aqui você pode implementar a lógica de envio para a API
+
+        // Criar objeto do grupo
+        const grupo = {
+            id: Date.now(), // id único simples
+            nome: nomeGrupo,
+            integrantes: integrantes,
+            visibilidade: visibilidade
+        };
+
+        // Salvar no localStorage (ou enviar para API)
+        let grupos = JSON.parse(localStorage.getItem("grupos")) || [];
+        grupos.push(grupo);
+        localStorage.setItem("grupos", JSON.stringify(grupos));
+
+        // Redirecionar para a página de listagem
+        window.location.href = "ListagemGrupo.html";
     });
     </script>
 </body>
