@@ -17,7 +17,7 @@ const sendMsgBtn = document.getElementById("sendMsgBtn");
 function carregarGrupo() {
   if (!grupoId) {
     alert("Nenhum grupo selecionado!");
-    window.location.href = "listagrupo.html";
+    window.location.href = "ListagemGrupo.html";
     return;
   }
 
@@ -26,7 +26,7 @@ function carregarGrupo() {
 
   if (!grupo) {
     alert("Grupo não encontrado!");
-    window.location.href = "listagrupo.html";
+    window.location.href = "ListagemGrupo.html";
     return;
   }
 
