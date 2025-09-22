@@ -1,0 +1,16 @@
+const grupoService = require('../services/grupoService');
+
+exports.criarGrupo = (req, res) => {
+    const { nomeGrupo, visibilidade, integrantes } = req.body;
+    grupoService.criarGrupo({ nomeGrupo, visibilidade, integrantes }, (err, id) => {
+        if (err) return res.status(500).json({ erro: 'Erro ao cadastrar grupo' });
+        res.status(201).json({ id });
+    });
+};
+
+exports.listarGrupos = (req, res) => {
+    grupoService.listarGrupos((err, grupos) => {
+        if (err) return res.status(500).json({ erro: 'Erro ao buscar grupos' });
+        res.json(grupos);
+    });
+};

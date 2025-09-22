@@ -1,10 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const db = require('./database');
+const db = require('./database'); 
+const cors = require('cors');
+const grupoRoutes = require('./src/routes/grupoRoutes');
 
 const app = express();
 app.use(express.json()); 
-
+app.use(cors()); 
+app.use('/api', grupoRoutes);
 
 // Endpoint de cadastro de usuário
 app.post('/api/usuarios/cadastro', async (req, res) => {
